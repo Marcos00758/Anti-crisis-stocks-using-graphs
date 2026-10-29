@@ -1,0 +1,1 @@
+print("Valor" if True else "Outro valor")
