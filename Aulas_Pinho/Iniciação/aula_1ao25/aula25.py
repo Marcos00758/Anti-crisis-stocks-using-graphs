@@ -1,1 +1,0 @@
-# f-strings > format e interpolação de strings com %
