@@ -35,4 +35,8 @@ Essas funções recebem a adjacência da MST, com arestas registradas nos dois s
 
 Para usar, reexecute a última célula e chame `adjacencia = criar_dicionario_adjacencia(mst_kruskal)`, `graus = calcular_graus(adjacencia)` e `excentricidades = adicionar_excentricidade(adjacencia)`.
 
-`distancia_entre_vertices(adjacencia, origem, destino)`, `calcular_diametro(adjacencia)` e `calcular_centro(adjacencia)` são apenas moldes com `pass`; ainda não calculam resultados e retornam `None`.
+`distancia_entre_vertices(adjacencia, origem, destino)` retorna a soma dos pesos no caminho único entre os dois vértices, usando DFS. A distância de um vértice a ele mesmo é zero. Vértices inexistentes ou ausência de caminho geram `ValueError`.
+
+`calcular_diametro(adjacencia)` retorna a maior excentricidade. `calcular_centro(adjacencia)` retorna uma lista dos vértices que minimizam a excentricidade, considerando diferenças de até `1e-10` como empate e preservando a ordem da adjacência. O centro é formado por vértices; não inclui pontos interiores das arestas. Ambas as funções reaproveitam `adicionar_excentricidade`, rejeitam árvores vazias e propagam o erro de desconexão. Para `{0: []}`, o diâmetro é zero e o centro é `[0]`.
+
+Após reexecutar a célula das métricas, consulte, por exemplo, `distancia_entre_vertices(adjacencia, 0, 1)`, `calcular_diametro(adjacencia)` e `calcular_centro(adjacencia)`, usando índices existentes na árvore. As funções pressupõem uma MST válida com pesos finitos e não negativos; não validam ciclos nem substituem um algoritmo de caminhos mínimos para grafos gerais.
