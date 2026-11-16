@@ -26,3 +26,13 @@ Os algoritmos recebem um DataFrame de distâncias de Mantegna quadrado, não vaz
 Valores `NaN` representam distâncias desconhecidas: as arestas correspondentes são ignoradas, sem preencher valores nem excluir ativos automaticamente. Infinitos e outras entradas inválidas geram `ValueError`. Se as arestas conhecidas não conectarem todos os ativos, ambos os algoritmos geram `ValueError` em vez de retornar uma árvore inválida. Prim aceita pesos iguais a 2.
 
 Após alterar as definições, reexecute a célula de importação de NumPy/Pandas e as células de definição de `validar_matriz`/`criar_arestas`, `find`/`union`/`kruskal` e `prim`. A importação de bibliotecas pode ser executada separadamente da linha `%run` para evitar um novo download. Recalcule os resultados antes de interpretar saídas antigas do notebook.
+
+## Métricas da árvore
+
+Na última célula de `Algoritimos.ipynb`, `calcular_graus(adjacencia)` retorna um dicionário `{vertice: grau}`. `adicionar_excentricidade(adjacencia)` retorna `{vertice: excentricidade}` sem modificar a adjacência: percorre a árvore por DFS a partir de cada vértice, soma os pesos ao longo do caminho único e toma a maior distância.
+
+Essas funções recebem a adjacência da MST, com arestas registradas nos dois sentidos e tuplas `(peso, vizinho)`, conforme `criar_dicionario_adjacencia(mst)`. A excentricidade pressupõe uma árvore com pesos válidos; não é um cálculo de caminhos mínimos para grafos com ciclos. Uma entrada desconexa gera `ValueError`. Um vértice isolado representado por `{0: []}` tem grau e excentricidade zero; uma adjacência vazia retorna dicionários vazios. O construtor atual não recupera um vértice isolado a partir de uma lista de arestas vazia.
+
+Para usar, reexecute a última célula e chame `adjacencia = criar_dicionario_adjacencia(mst_kruskal)`, `graus = calcular_graus(adjacencia)` e `excentricidades = adicionar_excentricidade(adjacencia)`.
+
+`distancia_entre_vertices(adjacencia, origem, destino)`, `calcular_diametro(adjacencia)` e `calcular_centro(adjacencia)` são apenas moldes com `pass`; ainda não calculam resultados e retornam `None`.
