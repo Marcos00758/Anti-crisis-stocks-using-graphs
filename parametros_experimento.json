@@ -1,0 +1,10 @@
+{
+  "experimento": "pandemia",
+  "inicio_formacao": "2017-01-01",
+  "fim_formacao": "2019-12-31",
+  "inicio_avaliacao": "2020-01-01",
+  "fim_avaliacao": "2022-12-31",
+  "inicio_historico": "2008-01-01",
+  "fim_historico_exclusivo": "2026-01-01",
+  "pasta_coleta": "dados/pandemia"
+}
