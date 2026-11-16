@@ -72,9 +72,11 @@ A tabela `metricas` contém `Vertice`, `Ticker`, `Grau`, `Excentricidade`, `Folh
 
 ## Etapa 6 — Fixar e implementar as regras de seleção
 
-Situação: planejada, ainda não implementada.
+Situação: duas células de seleção implementadas no final de `Algoritimos.ipynb`, após a tabela `metricas`.
 
-Regra inicial proposta: oito menores excentricidades para a carteira central e oito maiores para a periférica. Desempatar por ticker em ordem alfabética; verificar universo mínimo, empates e possível sobreposição. Se houver sobreposição, a regra para resolvê-la deve ser definida antes da avaliação, sem exclusões silenciosas.
+`carteira_central` seleciona as oito menores excentricidades; `carteira_periferica`, as oito maiores. Ambas desempatam por ticker em ordem alfabética, preservam as colunas de `metricas` e exibem as seleções sem alterar a tabela original. Executar primeiro a célula que cria `metricas` e depois cada célula de carteira. Não foram acrescentados testes ou validações.
+
+As seleções são independentes: não se remove eventual sobreposição automaticamente. Se ela ocorrer, a regra para resolvê-la precisa ser definida antes da avaliação. Se o universo contiver menos de oito ações, a seleção retorna as disponíveis; essa implementação simples não gera erro adicional.
 
 Usar o grau como informação estrutural; não misturá-lo ao ranking sem uma regra explícita. Distinguir os oito vértices do ranking periférico da periferia matemática estrita, formada pelos vértices de excentricidade máxima.
 

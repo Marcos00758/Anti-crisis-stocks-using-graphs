@@ -34,7 +34,7 @@ As datas estão centralizadas em `parametros_experimento.json`. Ambos os noteboo
 | `inicio_historico` / `fim_historico_exclusivo` | 2008-01-01 / 2026-01-01 | Histórico solicitado ao Yahoo; o fim é exclusivo |
 | `pasta_coleta` | `dados/pandemia` | Local da cópia persistida dos dados |
 
-A etapa 1 define os períodos e preserva a coleta. As etapas 2–5 usam os retornos elegíveis de 2017–2019 para calcular Pearson, Mantegna, a MST de Kruskal e as métricas estruturais. Seleção dos ativos e exportação permanecem nas etapas 6 e 7. O período 2020–2022 é apenas uma referência para a entrega ao outro integrante; sua simulação financeira não será implementada aqui.
+A etapa 1 define os períodos e preserva a coleta. As etapas 2–5 usam os retornos elegíveis de 2017–2019 para calcular Pearson, Mantegna, a MST de Kruskal e as métricas estruturais. A etapa 6 seleciona os ativos; a exportação permanece pendente na etapa 7. O período 2020–2022 é apenas uma referência para a entrega ao outro integrante; sua simulação financeira não será implementada aqui.
 
 Na primeira execução, a célula que define `baixar_acoes` salva:
 
@@ -74,6 +74,12 @@ Pearson usa `retornos_formacao_elegiveis` com mínimo de observações conjuntas
 Kruskal recebe `matriz_mantegna_formacao` e mantém `mst_kruskal` e `peso_kruskal` como saídas. A função de Prim foi preservada, mas sua chamada continua comentada. Nenhuma validação ou teste novo foi acrescentado; as verificações existentes continuam nas funções.
 
 Na etapa 5, `metricas` apresenta índice do vértice, ticker, grau, excentricidade, indicação de folha e indicação de centro. Os tickers usam a mesma matriz e ordem de índices da MST. `diametro` e `centro` ficam disponíveis para consulta. Para executar com `df` e `acoes` já carregados, reexecute as células das etapas 2 e 3, as definições de funções, a chamada de Kruskal e a tabela de métricas, nessa ordem. A seção IPCA não é necessária nesse caminho. As saídas anteriores das células alteradas foram limpas para evitar confusão com a árvore antiga.
+
+## Etapa 6 — Seleção das carteiras
+
+As duas últimas células de `Algoritimos.ipynb` criam e exibem `carteira_central` (oito menores excentricidades) e `carteira_periferica` (oito maiores). Ambas usam `metricas`, calculada na etapa 5, e desempate por ticker em ordem alfabética. As demais colunas são preservadas e a tabela original não é alterada.
+
+Execute primeiro a célula de `metricas` e depois as duas células das carteiras. Nenhum peso financeiro, simulação ou exportação é calculado. As seleções são independentes e eventual sobreposição não é removida automaticamente. Com menos de oito ações, são retornadas as disponíveis, sem validações adicionais.
 
 ## Entrada de Kruskal e Prim
 
