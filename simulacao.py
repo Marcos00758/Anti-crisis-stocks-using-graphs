@@ -185,20 +185,6 @@ def liquidez_formacao(df, inicio, fim):
     fin = df['Close'] * df['Volume']
     return fin.loc[inicio:fim].median()
 
-
-# def carteira_setorial(setores, liquidez, elegiveis, q=8):
-#     """por setor, a acao mais liquida na formacao; fica com os q
-#     setores cujo representante e mais liquido. Desempate por ticker. Sem dados de teste."""
-#     s = setores.copy()
-#     s['Ticker'] = s['Ticker'].where(s['Ticker'].str.endswith('.SA'), s['Ticker'] + '.SA')
-#     s = s.drop_duplicates('Ticker').set_index('Ticker')['Setor']
-#     t = pd.DataFrame({'Setor': s.reindex(elegiveis), 'Liquidez': liquidez.reindex(elegiveis)}).dropna()
-#     t.index.name = 'Ticker'
-#     t = t.reset_index().sort_values(['Setor', 'Liquidez', 'Ticker'], ascending=[True, False, True])
-#     rep = t.groupby('Setor').head(1).sort_values(['Liquidez', 'Ticker'], ascending=[False, True])
-#     return rep.head(q)['Ticker'].tolist()
-
-
 # --------------------------------------------------------------- graficos
 def _nome(t):
     return t.replace('.SA', '')
@@ -304,24 +290,11 @@ def fig_mst(mst, tickers, periferica, central, caminho=None):
         fig.savefig(caminho, dpi=200)
     return fig
 
-
-# ----------------------------------------------------------------- resumo
-def resumo(tab, pos, estrategias):
-    """Resumo objetivo dos resultados"""
-    for jan in tab.index.get_level_values(0).unique():
-        sub = tab.loc[jan]
-        print(f'\n== {jan}')
-        print('Ordem por menor Max drawdown:',
-              ' < '.join(f'{e.split(" - ")[0]} ({100 * v:.1f}%)'
-                         for e, v in sub['Max drawdown'].sort_values().items()))
-        if {'A - Periferica', 'B - Central'} <= set(estrategias):
-            a, b = sub.loc['A - Periferica'], sub.loc['B - Central']
-            print(f'A tem MDD menor que B: {a["Max drawdown"] < b["Max drawdown"]}; '
-                  f'vol. menor que B: {a["Volatilidade anualizada"] < b["Volatilidade anualizada"]}')
-        for e in estrategias:
-            p = pos.loc[(jan, e)]
-            print(f'{e}: {100 * p.iloc[0]:.0f}% das aleatorias tem MDD <= ao dela; '
-                  f'{100 * p.iloc[1]:.0f}% tem vol. <= a dela')
-
-
-
+def salvar(pasta, valores, tab, pos, comp):
+    pasta = Path(pasta)
+    (pasta / 'tables').mkdir(parents=True, exist_ok=True)
+    (pasta / 'figures').mkdir(parents=True, exist_ok=True)
+    valores.to_csv(pasta / 'tables' / 'portfolio_daily_values.csv')
+    tab.to_csv(pasta / 'tables' / 'metrics.csv')
+    pos.to_csv(pasta / 'tables' / 'posicao_aleatorias.csv')
+    comp.to_csv(pasta / 'tables' / 'portfolios.csv', index=False)
