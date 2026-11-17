@@ -290,25 +290,6 @@ def fig_mst(mst, tickers, periferica, central, caminho=None):
         fig.savefig(caminho, dpi=200)
     return fig
 
-
-# ----------------------------------------------------------------- resumo
-def resumo(tab, pos, estrategias):
-    """Resumo objetivo dos resultados"""
-    for jan in tab.index.get_level_values(0).unique():
-        sub = tab.loc[jan]
-        print(f'\n== {jan}')
-        print('Ordem por menor Max drawdown:',
-              ' < '.join(f'{e.split(" - ")[0]} ({100 * v:.1f}%)'
-                         for e, v in sub['Max drawdown'].sort_values().items()))
-        if {'A - Periferica', 'B - Central'} <= set(estrategias):
-            a, b = sub.loc['A - Periferica'], sub.loc['B - Central']
-            print(f'A tem MDD menor que B: {a["Max drawdown"] < b["Max drawdown"]}; '
-                  f'vol. menor que B: {a["Volatilidade anualizada"] < b["Volatilidade anualizada"]}')
-        for e in estrategias:
-            p = pos.loc[(jan, e)]
-            print(f'{e}: {100 * p.iloc[0]:.0f}% das aleatorias tem MDD <= ao dela; '
-                  f'{100 * p.iloc[1]:.0f}% tem vol. <= a dela')
-
 def salvar(pasta, valores, tab, pos, comp):
     pasta = Path(pasta)
     (pasta / 'tables').mkdir(parents=True, exist_ok=True)
