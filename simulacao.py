@@ -185,20 +185,6 @@ def liquidez_formacao(df, inicio, fim):
     fin = df['Close'] * df['Volume']
     return fin.loc[inicio:fim].median()
 
-
-# def carteira_setorial(setores, liquidez, elegiveis, q=8):
-#     """por setor, a acao mais liquida na formacao; fica com os q
-#     setores cujo representante e mais liquido. Desempate por ticker. Sem dados de teste."""
-#     s = setores.copy()
-#     s['Ticker'] = s['Ticker'].where(s['Ticker'].str.endswith('.SA'), s['Ticker'] + '.SA')
-#     s = s.drop_duplicates('Ticker').set_index('Ticker')['Setor']
-#     t = pd.DataFrame({'Setor': s.reindex(elegiveis), 'Liquidez': liquidez.reindex(elegiveis)}).dropna()
-#     t.index.name = 'Ticker'
-#     t = t.reset_index().sort_values(['Setor', 'Liquidez', 'Ticker'], ascending=[True, False, True])
-#     rep = t.groupby('Setor').head(1).sort_values(['Liquidez', 'Ticker'], ascending=[False, True])
-#     return rep.head(q)['Ticker'].tolist()
-
-
 # --------------------------------------------------------------- graficos
 def _nome(t):
     return t.replace('.SA', '')
