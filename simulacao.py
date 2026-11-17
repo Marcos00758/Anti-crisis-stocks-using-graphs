@@ -323,5 +323,11 @@ def resumo(tab, pos, estrategias):
             print(f'{e}: {100 * p.iloc[0]:.0f}% das aleatorias tem MDD <= ao dela; '
                   f'{100 * p.iloc[1]:.0f}% tem vol. <= a dela')
 
-
-
+def salvar(pasta, valores, tab, pos, comp):
+    pasta = Path(pasta)
+    (pasta / 'tables').mkdir(parents=True, exist_ok=True)
+    (pasta / 'figures').mkdir(parents=True, exist_ok=True)
+    valores.to_csv(pasta / 'tables' / 'portfolio_daily_values.csv')
+    tab.to_csv(pasta / 'tables' / 'metrics.csv')
+    pos.to_csv(pasta / 'tables' / 'posicao_aleatorias.csv')
+    comp.to_csv(pasta / 'tables' / 'portfolios.csv', index=False)
