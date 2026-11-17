@@ -15,7 +15,7 @@ DIAS_ANO = 252
 CORES = {
     'A - Periferica': '#D55E00',
     'B - Central': '#0072B2',
-    'C - Setorial': '#009E73',
+    'C - Controle': '#009E73',
     'Ibovespa': '#000000',
     'Universo EW': '#7F7F7F',
 }
@@ -201,7 +201,7 @@ def fig_evolucao(valores, crise, caminho=None):
         ax.plot(valores.index, valores[c], label=c, color=CORES.get(c), lw=1.6)
     _sombra(ax, crise)
     ax.axhline(1, color='k', lw=0.6, ls=':')
-    ax.set(title='Evolucao do valor (base 1, buy-and-hold, sem rebalancear)', ylabel='Valor')
+    ax.set(title='Evolução do valor (base 1, buy-and-hold, sem rebalancear)', ylabel='Valor')
     ax.legend(frameon=False)
     fig.tight_layout()
     if caminho:
@@ -215,7 +215,7 @@ def fig_drawdown(valores, crise, caminho=None):
         ax.plot(valores.index, 100 * (valores[c] / valores[c].cummax() - 1),
                 label=c, color=CORES.get(c), lw=1.4)
     _sombra(ax, crise)
-    ax.set(title='Drawdown desde o maximo anterior', ylabel='%')
+    ax.set(title='Drawdown desde o máximo anterior', ylabel='%')
     ax.legend(frameon=False)
     fig.tight_layout()
     if caminho:
@@ -283,7 +283,7 @@ def fig_mst(mst, tickers, periferica, central, caminho=None):
                            node_size=[30 + 25 * G.degree(v) for v in G], linewidths=0)
     pos_rot = {v: (x, y + 0.04) for v, (x, y) in pos.items()}
     nx.draw_networkx_labels(G, pos_rot, labels=rotulos, font_size=8, ax=ax)
-    ax.set_title('MST (Kruskal): laranja = periferica (A), azul = central (B), roxo = ambas')
+    ax.set_title('MST (Kruskal): laranja = periférica (A), azul = central (B), roxo = ambas')
     ax.axis('off')
     fig.tight_layout()
     if caminho:
