@@ -8,5 +8,17 @@
   "proporcao_minima_observacoes_conjuntas": 0.8,
   "inicio_historico": "2008-01-01",
   "fim_historico_exclusivo": "2026-01-01",
-  "pasta_coleta": "dados/pandemia"
+  "pasta_coleta": "dados/pandemia",
+  "crise_2008": {
+    "experimento": "crise_2008",
+    "inicio_formacao": "2004-01-01",
+    "fim_formacao": "2006-12-31",
+    "inicio_avaliacao": "2007-01-01",
+    "fim_avaliacao": "2009-12-31",
+    "cobertura_minima_formacao": 0.9,
+    "proporcao_minima_observacoes_conjuntas": 0.8,
+    "inicio_historico": "2003-12-01",
+    "fim_historico_exclusivo": "2010-01-01",
+    "pasta_coleta": "dados/crise_2008"
+  }
 }
